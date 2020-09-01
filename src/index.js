@@ -25,6 +25,7 @@ app.use((req, res, next) => {
   next(error);
 });
 
+//eslint disabled no-unused-vars
 app.use((error, res, req, next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode);
