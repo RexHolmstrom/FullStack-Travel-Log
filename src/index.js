@@ -27,6 +27,11 @@ app.use((req, res, next) => {
 
 app.use((error, res, req, next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+  res.status(statusCode);
+  res.json({
+    message: error.message,
+    stack: process.env.NODE_ENV === "production" ? "hi" : error.stack,
+  });
 });
 
 const port = process.env.PORT || 1337;
