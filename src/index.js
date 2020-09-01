@@ -3,6 +3,8 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const cors = require("cors");
 
+const middlewares = require("./middlewares");
+
 const app = express();
 app.use(morgan("common"));
 // Adding helmet to hide what backend is being used.
@@ -19,21 +21,8 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use((req, res, next) => {
-  const error = new Error(`Not found - ${req.originalUrl}`);
-  res.status(404);
-  next(error);
-});
-
-//eslint disabled no-unused-vars
-app.use((error, res, req, next) => {
-  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-  res.status(statusCode);
-  res.json({
-    message: error.message,
-    stack: process.env.NODE_ENV === "production" ? "hi" : error.stack,
-  });
-});
+app.use(middlewares.notFound);
+app.use(middlewares.errorHandler);
 
 const port = process.env.PORT || 1337;
 app.listen(port, () => {
