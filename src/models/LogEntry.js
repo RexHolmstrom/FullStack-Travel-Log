@@ -2,6 +2,13 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
+
+const requiredNumber = {
+    type: Number,
+    required: true,
+  },
+
+
 const logEntrySchema = new Schema({
   title: {
     type: String,
@@ -16,14 +23,8 @@ const logEntrySchema = new Schema({
     max: 10,
     default: 0,
   },
-  latitude: {
-    type: Number,
-    required: true,
-  },
-
-  longitude: {
-    type: Number,
-    required: true,
-  },
-  date: { type: Date, default: Date.now },
+  latitude: requiredNumber,
+  longitude: requiredNumber,
+  created_at: { type: Date, default: Date.now },
+  updated_at: { type: Date, default: Date.now },
 });
