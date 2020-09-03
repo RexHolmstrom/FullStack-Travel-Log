@@ -31,8 +31,8 @@ const logEntrySchema = new Schema({
   },
   longitude: {
     ...requiredNumber,
-    min: -90,
-    max: 90,
+    min: -180,
+    max: 180,
   },
   visitDate: {
     required: true,
